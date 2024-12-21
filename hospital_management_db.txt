@@ -1,0 +1,69 @@
+-- Create Departments Table
+CREATE TABLE Departments (
+    DepartmentID INT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Location VARCHAR(100) NOT NULL
+);
+
+-- Create Doctors Table
+CREATE TABLE Doctors (
+    DoctorID INT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Specialization VARCHAR(100) NOT NULL,
+    Phone VARCHAR(15) NOT NULL,
+    DepartmentID INT,
+    FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
+);
+
+-- Create Patients Table
+CREATE TABLE Patients (
+    PatientID INT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Age INT NOT NULL,
+    Gender VARCHAR(10) NOT NULL,
+    Phone VARCHAR(15) NOT NULL
+);
+
+-- Create Appointments Table
+CREATE TABLE Appointments (
+    AppointmentID INT PRIMARY KEY,
+    Date DATE NOT NULL,
+    Time TIME NOT NULL,
+    Status VARCHAR(50) NOT NULL,
+    DoctorID INT,
+    PatientID INT,
+    FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID),
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID)
+);
+
+-- Insert Sample Data into Departments
+INSERT INTO Departments VALUES 
+(1, 'Cardiology', 'Building A'),
+(2, 'Neurology', 'Building B'),
+(3, 'Orthopedics', 'Building C'),
+(4, 'Pediatrics', 'Building D'),
+(5, 'Radiology', 'Building E');
+
+-- Insert Sample Data into Doctors
+INSERT INTO Doctors VALUES
+(1, 'Dr. Smith', 'Cardiologist', '123-456-7890', 1),
+(2, 'Dr. Lee', 'Neurologist', '234-567-8901', 2),
+(3, 'Dr. Patel', 'Orthopedic Surgeon', '345-678-9012', 3),
+(4, 'Dr. Green', 'Pediatrician', '456-789-0123', 4),
+(5, 'Dr. Brown', 'Radiologist', '567-890-1234', 5);
+
+-- Insert Sample Data into Patients
+INSERT INTO Patients VALUES
+(1, 'Alice', 25, 'Female', '678-901-2345'),
+(2, 'Bob', 40, 'Male', '789-012-3456'),
+(3, 'Charlie', 30, 'Male', '890-123-4567'),
+(4, 'Diana', 35, 'Female', '901-234-5678'),
+(5, 'Eva', 20, 'Female', '012-345-6789');
+
+-- Insert Sample Data into Appointments
+INSERT INTO Appointments VALUES
+(1, '2024-12-22', '10:00:00', 'Scheduled', 1, 1),
+(2, '2024-12-23', '11:30:00', 'Completed', 2, 2),
+(3, '2024-12-24', '14:00:00', 'Cancelled', 3, 3),
+(4, '2024-12-25', '16:15:00', 'Scheduled', 4, 4),
+(5, '2024-12-26', '09:00:00', 'Scheduled', 5, 5);
